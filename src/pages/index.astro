@@ -6,10 +6,10 @@ import ThemeToggle from '../components/ThemeToggle.astro';
 <Layout title="Coules Labs — AI-Native Software Development">
 	<header>
 		<nav>
-			<div class="logo">
+			<a href="/" class="logo">
 				<img src="/images/logo-transparent.png" alt="Coules Labs" width="40" height="40" />
 				<span class="logo-text">Coules Labs</span>
-			</div>
+			</a>
 			<div class="nav-right">
 				<a href="#services">Services</a>
 				<a href="#about">About</a>
@@ -194,6 +194,12 @@ import ThemeToggle from '../components/ThemeToggle.astro';
 		display: flex;
 		align-items: center;
 		gap: 0.6rem;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.logo:hover {
+		color: inherit;
 	}
 
 	.logo img {
