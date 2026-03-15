@@ -1,0 +1,108 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "AI-native software development, consulting, and enablement." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/png" href="/images/logo-transparent.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+
+		<!-- Open Graph -->
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://couleslabs.com" />
+		<meta property="og:image" content="https://couleslabs.com/images/logo-wordmark.png" />
+
+		<!-- Preload fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+	</head>
+	<body>
+		<slot />
+		<script>
+			// Theme toggle
+			const theme = (() => {
+				if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+					return localStorage.getItem('theme');
+				}
+				if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+					return 'dark';
+				}
+				return 'light';
+			})();
+
+			if (theme === 'dark') {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+
+			window.localStorage.setItem('theme', theme!);
+		</script>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--color-bg: #ffffff;
+		--color-bg-secondary: #f8f9fa;
+		--color-text: #1a1a2e;
+		--color-text-secondary: #555;
+		--color-accent: #1a6fb5;
+		--color-accent-light: #2d8fd5;
+		--color-border: #e0e0e0;
+		--color-card-bg: #ffffff;
+		--color-card-shadow: rgba(0, 0, 0, 0.08);
+	}
+
+	html.dark {
+		--color-bg: #0f0f1a;
+		--color-bg-secondary: #161625;
+		--color-text: #e8e8f0;
+		--color-text-secondary: #a0a0b8;
+		--color-accent: #4da6e8;
+		--color-accent-light: #6bb8f0;
+		--color-border: #2a2a3d;
+		--color-card-bg: #1a1a2e;
+		--color-card-shadow: rgba(0, 0, 0, 0.3);
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	html {
+		font-family: 'Inter', system-ui, -apple-system, sans-serif;
+		background: var(--color-bg);
+		color: var(--color-text);
+		scroll-behavior: smooth;
+	}
+
+	body {
+		min-height: 100vh;
+		transition: background-color 0.3s ease, color 0.3s ease;
+	}
+
+	a {
+		color: var(--color-accent);
+		text-decoration: none;
+	}
+
+	a:hover {
+		color: var(--color-accent-light);
+	}
+</style>
